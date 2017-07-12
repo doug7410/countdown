@@ -4,6 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
+import store from './vuex/store'
+
+try {
+  window.$ = window.jQuery = require('jquery')
+
+  require('bootstrap-sass')
+} catch (e) {}
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -14,5 +21,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  store
 })

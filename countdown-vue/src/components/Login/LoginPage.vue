@@ -34,13 +34,12 @@
 </template>
 
 <script>
-  import { loginUrl, getHeader, userUrl } from '../../config.js'
-  import { clientID, clientSecret } from '../../env.js'
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'login-page',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
         login: {
           email: 'doug@email.com',
           password: 'password'
@@ -49,30 +48,10 @@
     },
 
     methods: {
+      ...mapActions(['requestLogin']),
       handleLoginFormSubmit () {
-        const postData = {
-          grant_type: 'password',
-          client_id: clientID,
-          client_secret: clientSecret,
-          username: this.login.email,
-          password: this.login.password,
-          scope: ''
-        }
-
-        const authUser = {}
-        this.$http.post(loginUrl, postData).then(response => {
-          if (response.status === 200) {
-            console.log(response)
-            authUser.access_token = response.data.access_token
-            authUser.refresh_token = response.data.refresh_token
-            window.localStorage.setItem('authUser', JSON.stringify(authUser))
-            this.$http.get(userUrl, {headers: getHeader()}).then((response) => {
-              authUser.email = response.body.email
-              authUser.name = response.body.name
-              window.localStorage.setItem('authUser', JSON.stringify(authUser))
-              this.$router.push({name: 'dashboard'})
-            })
-          }
+        this.requestLogin(this.login).then(() => {
+          this.$router.push({name: 'dashboard'})
         })
       }
     },

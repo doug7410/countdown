@@ -1,22 +1,25 @@
 <template>
   <div id="app">
+    <top-menu v-if="accessToken"></top-menu>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import {mapGetters} from 'vuex'
+  import TopMenu from './components/Nav/TopMenu'
+
+  export default {
+    name: 'app',
+    computed: {
+      ...mapGetters(['accessToken'])
+    },
+    components: {
+      TopMenu
+    }
+  }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import "assets/styles/main";
 </style>

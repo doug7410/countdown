@@ -8,7 +8,7 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   routes: [
-    { path: '/', name: 'loginPage', component: LoginPage },
+    { path: '/', name: 'LoginPage', component: LoginPage },
     { path: '/dashboard', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true } }
   ]
 })
