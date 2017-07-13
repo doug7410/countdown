@@ -15,6 +15,10 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.name === 'LoginPage' && store.getters.accessToken) {
+    next({name: 'dashboard'})
+  }
+
   if (to.meta.requiresAuth) {
     if (store.getters.accessToken) {
       next()
@@ -22,6 +26,7 @@ router.beforeEach((to, from, next) => {
       next({name: 'LoginPage'})
     }
   }
+
   next()
 })
 
