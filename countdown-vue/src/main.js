@@ -10,6 +10,7 @@ try {
   window.$ = window.jQuery = require('jquery')
 
   require('bootstrap-sass')
+  require('bootstrap-datepicker')
 } catch (e) {}
 
 Vue.config.productionTip = false

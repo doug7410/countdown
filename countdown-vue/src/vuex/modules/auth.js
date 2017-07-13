@@ -7,7 +7,8 @@ export default {
     email: null,
     name: null,
     accessToken: null,
-    refreshToken: null
+    refreshToken: null,
+    id: null
   },
 
   getters: {
@@ -25,15 +26,10 @@ export default {
         scope: ''
       }
 
-      http.post('oauth/token', postData).then(response => {
+      return http.post('oauth/token', postData).then(response => {
         if (response.status === 200) {
           commit('SAVE_TOKEN', response.data)
-          const authUser = {}
-          authUser.access_token = response.data.access_token
-          authUser.refresh_token = response.data.refresh_token
-          window.localStorage.setItem('authUser', JSON.stringify(authUser))
-
-          http.get('api/user', {headers: getHeader()}).then((response) => {
+          return http.get('api/user', {headers: getHeader()}).then((response) => {
             commit('SET_USER', response.data)
           })
         }
@@ -52,9 +48,10 @@ export default {
       state.refreshToken = data.refresh_token
     },
 
-    SET_USER (state, { email, name }) {
+    SET_USER (state, { email, name, id }) {
       state.name = name
       state.email = email
+      state.id = id
     },
 
     LOGOUT_USER (state) {

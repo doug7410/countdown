@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../vuex/store'
 import LoginPage from '@/components/Login/LoginPage'
-import Dashboard from '@/components/Dashboard'
+import Dashboard from '@/components/Dashboard/Dashboard'
 
 Vue.use(Router)
 
@@ -15,8 +16,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-    if (authUser && authUser.access_token) {
+    if (store.getters.accessToken) {
       next()
     } else {
       next({name: 'LoginPage'})
