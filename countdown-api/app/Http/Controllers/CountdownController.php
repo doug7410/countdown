@@ -12,10 +12,11 @@ class CountdownController extends Controller
     public function store(Request $request)
     {
         $userId = $request->user()->id;
-        $countdown = Countdown::create(array_merge($request->input(), [
+        $countdown = Countdown::create([
+            'name' => $request->input('name'),
             'user_id' => $userId,
             'date' => Carbon::createFromFormat('m/d/Y', $request->input('date'))
-        ]));
+        ]);
 
         return JsonResponse::create($countdown);
     }
