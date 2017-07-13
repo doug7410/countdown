@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <h3>Create a new Countdown</h3>
+      <h3>Edit Countdown {{ currentCountdown.name }}</h3>
     </div>
     <form class="form-inline">
       <div class="form-group">
@@ -21,7 +21,7 @@
                 class="form-control"
                 id="date">
       </div>
-      <button type="submit" class="btn btn-default" @click.prevent="create">Create</button>
+      <button type="submit" class="btn btn-default" @click.prevent="update">Update</button>
     </form>
   </div>
 </template>
@@ -31,7 +31,6 @@
   import {mapActions, mapGetters} from 'vuex'
 
   export default{
-    name: 'countdown-form',
     created () {
       $(document).ready(() => {
         $('#date').datepicker().on(
@@ -40,6 +39,9 @@
           }
         )
       })
+
+      this.name = this.currentCountdown.name
+      this.date = this.currentCountdown.date
     },
     data () {
       return {
@@ -51,14 +53,12 @@
       ...mapGetters(['currentCountdown'])
     },
     methods: {
-      ...mapActions(['createCountdown']),
-      create () {
-        this.createCountdown({name: this.name, date: this.date}).then(() => {
-          console.log(this.currentCountdown.id)
-          this.$router.push({
-            name: 'updateCountdown',
-            params: { id: this.currentCountdown.id }
-          })
+      ...mapActions(['updateCountdown']),
+      update () {
+        this.updateCountdown({
+          id: this.currentCountdown.id,
+          name: this.name,
+          date: this.date
         })
       }
     }

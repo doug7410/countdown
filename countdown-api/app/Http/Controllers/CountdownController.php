@@ -20,4 +20,14 @@ class CountdownController extends Controller
 
         return JsonResponse::create($countdown);
     }
+
+    public function update(Request $request)
+    {
+        $countdown = Countdown::findOrFail($request->input('id'));
+        $countdown->name = $request->input('name');
+        $countdown->date = Carbon::createFromFormat('m/d/Y', $request->input('date'));
+        $countdown->save();
+
+        return JsonResponse::create($countdown);
+    }
 }

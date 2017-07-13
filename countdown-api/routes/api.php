@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->post('/countdown', 'CountdownController@store');
+Route::middleware('auth:api')->put('/countdown', 'CountdownController@update');
 
 Route::middleware('api')->get('/test', function () {
     return \Illuminate\Http\JsonResponse::create(['name' => ['first' => 'Doug', 'last' => 'Steinberg']]);

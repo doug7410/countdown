@@ -14,6 +14,7 @@ class CreateCountdownTable extends Migration
     public function up()
     {
         Schema::create('countdowns', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
             $table->date('date');
             $table->integer('user_id');

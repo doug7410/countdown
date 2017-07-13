@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <countdown-form></countdown-form>
+    <router-link
+        class="btn btn-sm btn-default"
+        :to="{name: 'createCountdown'}">
+      + Create Countdown
+    </router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import CountdownForm from './CountdownForm'
   export default{
-    name: 'dashboard',
-    components: {
-      CountdownForm
-    }
+    name: 'dashboard'
   }
 </script>
