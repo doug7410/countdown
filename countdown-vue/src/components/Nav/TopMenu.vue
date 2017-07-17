@@ -10,7 +10,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <router-link class="navbar-brand" :to="{name: 'dashboard'}">Dashboard</router-link>
+        <router-link class="navbar-brand" :to="{name: 'countdownList'}">Dashboard</router-link>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->

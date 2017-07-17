@@ -23,12 +23,15 @@
       </div>
       <button type="submit" class="btn btn-default" @click.prevent="update">Update</button>
     </form>
+    <hr>
+    <image-manager :countdown="currentCountdown"></image-manager>
   </div>
 </template>
 
 <script>
   import $ from 'jquery'
   import {mapActions, mapGetters} from 'vuex'
+  import ImageManager from './ImageManager'
 
   export default{
     created () {
@@ -42,6 +45,8 @@
 
       this.name = this.currentCountdown.name
       this.date = this.currentCountdown.date
+
+      this.getImages()
     },
     data () {
       return {
@@ -53,7 +58,7 @@
       ...mapGetters(['currentCountdown'])
     },
     methods: {
-      ...mapActions(['updateCountdown']),
+      ...mapActions(['updateCountdown', 'getImages']),
       update () {
         this.updateCountdown({
           id: this.currentCountdown.id,
@@ -61,6 +66,9 @@
           date: this.date
         })
       }
+    },
+    components: {
+      ImageManager
     }
   }
 </script>

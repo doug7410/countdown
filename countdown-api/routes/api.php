@@ -19,6 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->post('/countdown', 'CountdownController@store');
 Route::middleware('auth:api')->put('/countdown', 'CountdownController@update');
+Route::middleware('auth:api')->get('/countdown/{id}', 'CountdownController@show');
+Route::middleware('auth:api')->get('/countdowns', 'CountdownController@index');
+
+Route::middleware('auth:api')->post('/images', 'ImagesController@store');
+Route::middleware('auth:api')->get('/countdown/{countdown_id}/images', 'ImagesController@show');
 
 Route::middleware('api')->get('/test', function () {
     return \Illuminate\Http\JsonResponse::create(['name' => ['first' => 'Doug', 'last' => 'Steinberg']]);

@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../vuex/store'
 import LoginPage from '../components/Login/LoginPage'
+import CountdownList from '../components/Dashboard/CountdownList'
 import Dashboard from '../components/Dashboard/Dashboard'
+import Countdown from '../components/CountdownViewer/CountdownContainer'
 import CountdownForm from '../components/Dashboard/CountdownForm'
 import EditCountdownForm from '../components/Dashboard/EditCountdownForm'
 
@@ -23,6 +25,12 @@ const router = new Router({
       meta: { requiresAuth: true },
       children: [
         {
+          path: 'home',
+          name: 'countdownList',
+          component: CountdownList,
+          meta: { requiresAuth: true }
+        },
+        {
           path: 'countdown/create',
           name: 'createCountdown',
           component: CountdownForm,
@@ -35,13 +43,20 @@ const router = new Router({
           meta: { requiresAuth: true }
         }
       ]
+    },
+    {
+      path: '/countdown/:id',
+      name: 'countdownView',
+      component: Countdown,
+      meta: { requiresAuth: true }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
   if (to.name === 'LoginPage' && store.getters.accessToken) {
-    next({name: 'dashboard'})
+    next({name: 'countdownList'})
   }
 
   if (to.meta.requiresAuth) {

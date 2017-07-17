@@ -30,4 +30,14 @@ class CountdownController extends Controller
 
         return JsonResponse::create($countdown);
     }
+
+    public function show($id)
+    {
+        return Countdown::with('images')->findOrFail($id);
+    }
+
+    public function index()
+    {
+        return Countdown::with('images')->where('user_id', auth()->user()->id)->get();
+    }
 }

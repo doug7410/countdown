@@ -51,7 +51,7 @@
       ...mapActions(['requestLogin']),
       handleLoginFormSubmit () {
         this.requestLogin(this.login).then(() => {
-          this.$router.push({name: 'dashboard'})
+          this.$router.push({name: 'countdownList'})
         })
       }
     },
