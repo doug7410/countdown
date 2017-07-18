@@ -1,5 +1,5 @@
 <template>
-  <div class="countdown-wrapper">
+  <div class="countdown-wrapper" :style="{backgroundImage: currentImage}">
     <div>{{ currentCountdown.name }}</div>
     <div>{{ currentCountdown.date }}</div>
     <clock :trip-date="currentCountdown.date"></clock>
@@ -11,31 +11,36 @@
 <script>
   import Clock from './Clock'
   import { mapActions, mapGetters } from 'vuex'
-  import $ from 'jquery'
 
   export default{
+    name: 'countdown-wrapper',
+    data () {
+      return {
+        currentImageNumber: 0,
+        currentImage: null
+      }
+    },
     created () {
       this.getCountdown(this.$route.params.id)
+      this.currentImage = this.getImageUrl(this.currentCountdown.images)
       this.runImages()
     },
-
     computed: {
       ...mapGetters(['currentCountdown'])
     },
     methods: {
       ...mapActions(['getCountdown']),
       runImages () {
-        let currentImage = 0
         setInterval(() => {
-          if (currentImage === this.currentCountdown.images.length) {
-            currentImage = 0
+          if (this.currentImageNumber === this.currentCountdown.images.length) {
+            this.currentImageNumber = 0
           }
-          $('body').css(
-            'background-image',
-            'url(http://countdown.dev/storage/' + this.currentCountdown.images[currentImage].path + ')'
-          )
-          currentImage++
+          this.currentImage = this.getImageUrl(this.currentCountdown.images)
+          this.currentImageNumber++
         }, 3000)
+      },
+      getImageUrl (images) {
+        return 'url(http://countdown.dev/storage/' + images[this.currentImageNumber].path + ')'
       }
     },
 
@@ -45,13 +50,17 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .countdown-wrapper {
-    max-width: 80%;
-    margin: 0 auto;
-  }
-
-  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
     background-size: cover;
   }
 </style>

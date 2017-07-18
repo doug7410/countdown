@@ -35,7 +35,6 @@
     },
     props: ['tripDate'],
     created () {
-      console.log(this.tripDate)
       window.setInterval(() => {
         this.timeRemaining = this.getTimeRemaining(this.tripDate)
       }, 1000)
@@ -78,6 +77,7 @@
     color: #fff;
     display: flex;
     justify-content: space-around;
+    width: 80%;
   }
 
   .block {

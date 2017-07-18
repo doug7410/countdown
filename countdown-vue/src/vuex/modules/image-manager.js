@@ -11,7 +11,6 @@ export default {
       let data = new FormData()
       data.append('image', image)
       data.append('countdown_id', getters.currentCountdown.id)
-      console.log(data)
       http.post('api/images', data, {
         headers: {...getHeader(), ...{'content-type': 'multipart/form-data'}}
       }).then((countdownImages) => {

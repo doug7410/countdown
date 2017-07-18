@@ -54,7 +54,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   if (to.name === 'LoginPage' && store.getters.accessToken) {
     next({name: 'countdownList'})
   }

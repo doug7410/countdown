@@ -54,7 +54,6 @@
       ...mapActions(['createCountdown']),
       create () {
         this.createCountdown({name: this.name, date: this.date}).then(() => {
-          console.log(this.currentCountdown.id)
           this.$router.push({
             name: 'updateCountdown',
             params: { id: this.currentCountdown.id }
